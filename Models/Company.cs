@@ -17,10 +17,10 @@ namespace TheBugTracker.Models
         public string Description { get; set; }
 
         //navigation properties
-        public virtual ICollection<BTUser> Members { get; set; } = new HashSet<BTUser>();
-        public virtual ICollection<Project> Projects { get; set; } = new HashSet<Project>();
+        public virtual ICollection<BTUser> Members { get; set; } 
+        public virtual ICollection<Project> Projects { get; set; }
 
         //create relationship to Invites
-        public virtual ICollection<Invite> Invites { get; set; } = new HashSet<Invite>();
+        //public virtual ICollection<Invite> Invites { get; set; } = new HashSet<Invite>();
     }
 }
