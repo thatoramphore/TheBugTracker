@@ -10,8 +10,8 @@ using TheBugTracker.Data;
 namespace TheBugTracker.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220614160156_Data Models")]
-    partial class DataModels
+    [Migration("20220617193158_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -382,10 +382,7 @@ namespace TheBugTracker.Data.Migrations
                     b.Property<bool>("Archived")
                         .HasColumnType("boolean");
 
-                    b.Property<string>("CompanyId")
-                        .HasColumnType("text");
-
-                    b.Property<int?>("CompanyId1")
+                    b.Property<int>("CompanyId")
                         .HasColumnType("integer");
 
                     b.Property<string>("Description")
@@ -416,7 +413,7 @@ namespace TheBugTracker.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CompanyId1");
+                    b.HasIndex("CompanyId");
 
                     b.HasIndex("ProjectPriorityId");
 
@@ -785,7 +782,9 @@ namespace TheBugTracker.Data.Migrations
                 {
                     b.HasOne("TheBugTracker.Models.Company", "Company")
                         .WithMany("Projects")
-                        .HasForeignKey("CompanyId1");
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("TheBugTracker.Models.ProjectPriority", "ProjectPriority")
                         .WithMany()

@@ -14,7 +14,7 @@ namespace TheBugTracker.Models
         public int Id { get; set; }
 
         [DisplayName("Company")]
-        public string CompanyId { get; set; }
+        public int CompanyId { get; set; }
 
         //Project's core properties
         [Required]

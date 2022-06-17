@@ -380,10 +380,7 @@ namespace TheBugTracker.Data.Migrations
                     b.Property<bool>("Archived")
                         .HasColumnType("boolean");
 
-                    b.Property<string>("CompanyId")
-                        .HasColumnType("text");
-
-                    b.Property<int?>("CompanyId1")
+                    b.Property<int>("CompanyId")
                         .HasColumnType("integer");
 
                     b.Property<string>("Description")
@@ -414,7 +411,7 @@ namespace TheBugTracker.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CompanyId1");
+                    b.HasIndex("CompanyId");
 
                     b.HasIndex("ProjectPriorityId");
 
@@ -783,7 +780,9 @@ namespace TheBugTracker.Data.Migrations
                 {
                     b.HasOne("TheBugTracker.Models.Company", "Company")
                         .WithMany("Projects")
-                        .HasForeignKey("CompanyId1");
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("TheBugTracker.Models.ProjectPriority", "ProjectPriority")
                         .WithMany()

@@ -532,3 +532,8 @@ C:\Users\thato\Documents\code\TheBugTracker\obj\Debug\net5.0\Razor\Views\TicketT
 C:\Users\thato\Documents\code\TheBugTracker\obj\Debug\net5.0\Razor\Views\TicketTypes\Details.cshtml.g.cs
 C:\Users\thato\Documents\code\TheBugTracker\obj\Debug\net5.0\Razor\Views\TicketTypes\Edit.cshtml.g.cs
 C:\Users\thato\Documents\code\TheBugTracker\obj\Debug\net5.0\Razor\Views\TicketTypes\Index.cshtml.g.cs
+C:\Users\thato\Documents\code\TheBugTracker\obj\Debug\net5.0\Razor\Views\TicketStatus\Create.cshtml.g.cs
+C:\Users\thato\Documents\code\TheBugTracker\obj\Debug\net5.0\Razor\Views\TicketStatus\Delete.cshtml.g.cs
+C:\Users\thato\Documents\code\TheBugTracker\obj\Debug\net5.0\Razor\Views\TicketStatus\Details.cshtml.g.cs
+C:\Users\thato\Documents\code\TheBugTracker\obj\Debug\net5.0\Razor\Views\TicketStatus\Edit.cshtml.g.cs
+C:\Users\thato\Documents\code\TheBugTracker\obj\Debug\net5.0\Razor\Views\TicketStatus\Index.cshtml.g.cs
