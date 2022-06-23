@@ -39,10 +39,13 @@ namespace TheBugTracker
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultUI()
                 .AddDefaultTokenProviders();
+            //CUSTOM SERVICES
             //register BTRolesServices
             services.AddScoped<IBTRolesService, BTRolesService>();
             //register BTCompanyInfoService
             services.AddScoped<IBTCompanyInfoService, BTCompanyInfoService>();
+            //register BTProjectService
+            services.AddScoped<IBTProjectService, BTProjectService>();
 
             services.AddControllersWithViews();
         }
