@@ -34,7 +34,7 @@ namespace TheBugTracker.Controllers
             }
 
             var ticketStatus = await _context.TicketStatuses
-                .FirstOrDefaultAsync(m => m.id == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (ticketStatus == null)
             {
                 return NotFound();
@@ -54,7 +54,7 @@ namespace TheBugTracker.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,Name")] TicketStatus ticketStatus)
+        public async Task<IActionResult> Create([Bind("Id,Name")] TicketStatus ticketStatus)
         {
             if (ModelState.IsValid)
             {
@@ -86,9 +86,9 @@ namespace TheBugTracker.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("id,Name")] TicketStatus ticketStatus)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] TicketStatus ticketStatus)
         {
-            if (id != ticketStatus.id)
+            if (id != ticketStatus.Id)
             {
                 return NotFound();
             }
@@ -102,7 +102,7 @@ namespace TheBugTracker.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!TicketStatusExists(ticketStatus.id))
+                    if (!TicketStatusExists(ticketStatus.Id))
                     {
                         return NotFound();
                     }
@@ -125,7 +125,7 @@ namespace TheBugTracker.Controllers
             }
 
             var ticketStatus = await _context.TicketStatuses
-                .FirstOrDefaultAsync(m => m.id == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (ticketStatus == null)
             {
                 return NotFound();
@@ -147,7 +147,7 @@ namespace TheBugTracker.Controllers
 
         private bool TicketStatusExists(int id)
         {
-            return _context.TicketStatuses.Any(e => e.id == id);
+            return _context.TicketStatuses.Any(e => e.Id == id);
         }
     }
 }

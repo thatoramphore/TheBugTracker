@@ -34,7 +34,7 @@ namespace TheBugTracker.Controllers
             }
 
             var ticketPriority = await _context.TicketPriorities
-                .FirstOrDefaultAsync(m => m.id == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (ticketPriority == null)
             {
                 return NotFound();
@@ -54,7 +54,7 @@ namespace TheBugTracker.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,Name")] TicketPriority ticketPriority)
+        public async Task<IActionResult> Create([Bind("Id,Name")] TicketPriority ticketPriority)
         {
             if (ModelState.IsValid)
             {
@@ -86,9 +86,9 @@ namespace TheBugTracker.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("id,Name")] TicketPriority ticketPriority)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] TicketPriority ticketPriority)
         {
-            if (id != ticketPriority.id)
+            if (id != ticketPriority.Id)
             {
                 return NotFound();
             }
@@ -102,7 +102,7 @@ namespace TheBugTracker.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!TicketPriorityExists(ticketPriority.id))
+                    if (!TicketPriorityExists(ticketPriority.Id))
                     {
                         return NotFound();
                     }
@@ -125,7 +125,7 @@ namespace TheBugTracker.Controllers
             }
 
             var ticketPriority = await _context.TicketPriorities
-                .FirstOrDefaultAsync(m => m.id == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (ticketPriority == null)
             {
                 return NotFound();
@@ -147,7 +147,7 @@ namespace TheBugTracker.Controllers
 
         private bool TicketPriorityExists(int id)
         {
-            return _context.TicketPriorities.Any(e => e.id == id);
+            return _context.TicketPriorities.Any(e => e.Id == id);
         }
     }
 }

@@ -34,7 +34,7 @@ namespace TheBugTracker.Controllers
             }
 
             var ticketType = await _context.TicketTypes
-                .FirstOrDefaultAsync(m => m.id == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (ticketType == null)
             {
                 return NotFound();
@@ -54,7 +54,7 @@ namespace TheBugTracker.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,Name")] TicketType ticketType)
+        public async Task<IActionResult> Create([Bind("Id,Name")] TicketType ticketType)
         {
             if (ModelState.IsValid)
             {
@@ -86,9 +86,9 @@ namespace TheBugTracker.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("id,Name")] TicketType ticketType)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] TicketType ticketType)
         {
-            if (id != ticketType.id)
+            if (id != ticketType.Id)
             {
                 return NotFound();
             }
@@ -102,7 +102,7 @@ namespace TheBugTracker.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!TicketTypeExists(ticketType.id))
+                    if (!TicketTypeExists(ticketType.Id))
                     {
                         return NotFound();
                     }
@@ -125,7 +125,7 @@ namespace TheBugTracker.Controllers
             }
 
             var ticketType = await _context.TicketTypes
-                .FirstOrDefaultAsync(m => m.id == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (ticketType == null)
             {
                 return NotFound();
@@ -147,7 +147,7 @@ namespace TheBugTracker.Controllers
 
         private bool TicketTypeExists(int id)
         {
-            return _context.TicketTypes.Any(e => e.id == id);
+            return _context.TicketTypes.Any(e => e.Id == id);
         }
     }
 }

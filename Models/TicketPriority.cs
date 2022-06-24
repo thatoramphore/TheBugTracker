@@ -8,7 +8,7 @@ namespace TheBugTracker.Models
 {
     public class TicketPriority
     {
-        public int id { get; set; }
+        public int Id { get; set; }
         [DisplayName("Priority Name")]
         public string Name { get; set; }
     }
