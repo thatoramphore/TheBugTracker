@@ -286,6 +286,7 @@ C:\Users\thato\Documents\code\TheBugTracker\bin\Debug\net5.0\refs\WindowsBase.dl
 C:\Users\thato\Documents\code\TheBugTracker\bin\Debug\net5.0\TheBugTracker.Views.dll
 C:\Users\thato\Documents\code\TheBugTracker\bin\Debug\net5.0\TheBugTracker.Views.pdb
 C:\Users\thato\Documents\code\TheBugTracker\bin\Debug\net5.0\Humanizer.dll
+C:\Users\thato\Documents\code\TheBugTracker\bin\Debug\net5.0\MailKit.dll
 C:\Users\thato\Documents\code\TheBugTracker\bin\Debug\net5.0\Microsoft.AspNetCore.Cryptography.Internal.dll
 C:\Users\thato\Documents\code\TheBugTracker\bin\Debug\net5.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
 C:\Users\thato\Documents\code\TheBugTracker\bin\Debug\net5.0\Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.dll
@@ -326,9 +327,11 @@ C:\Users\thato\Documents\code\TheBugTracker\bin\Debug\net5.0\Microsoft.VisualStu
 C:\Users\thato\Documents\code\TheBugTracker\bin\Debug\net5.0\Microsoft.VisualStudio.Web.CodeGeneration.Templating.dll
 C:\Users\thato\Documents\code\TheBugTracker\bin\Debug\net5.0\Microsoft.VisualStudio.Web.CodeGeneration.Utils.dll
 C:\Users\thato\Documents\code\TheBugTracker\bin\Debug\net5.0\Microsoft.VisualStudio.Web.CodeGenerators.Mvc.dll
+C:\Users\thato\Documents\code\TheBugTracker\bin\Debug\net5.0\MimeKit.dll
 C:\Users\thato\Documents\code\TheBugTracker\bin\Debug\net5.0\Newtonsoft.Json.dll
 C:\Users\thato\Documents\code\TheBugTracker\bin\Debug\net5.0\Npgsql.dll
 C:\Users\thato\Documents\code\TheBugTracker\bin\Debug\net5.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
+C:\Users\thato\Documents\code\TheBugTracker\bin\Debug\net5.0\BouncyCastle.Crypto.dll
 C:\Users\thato\Documents\code\TheBugTracker\bin\Debug\net5.0\System.Composition.AttributedModel.dll
 C:\Users\thato\Documents\code\TheBugTracker\bin\Debug\net5.0\System.Composition.Convention.dll
 C:\Users\thato\Documents\code\TheBugTracker\bin\Debug\net5.0\System.Composition.Hosting.dll
