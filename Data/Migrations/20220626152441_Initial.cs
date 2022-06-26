@@ -300,27 +300,25 @@ namespace TheBugTracker.Data.Migrations
                     CompanyToken = table.Column<Guid>(type: "uuid", nullable: false),
                     CompanyId = table.Column<int>(type: "integer", nullable: false),
                     ProjectId = table.Column<int>(type: "integer", nullable: false),
-                    InvitorId = table.Column<int>(type: "integer", nullable: false),
-                    InviteeId = table.Column<int>(type: "integer", nullable: false),
+                    InvitorId = table.Column<string>(type: "text", nullable: true),
+                    InviteeId = table.Column<string>(type: "text", nullable: true),
                     InviteeEmail = table.Column<string>(type: "text", nullable: true),
                     InviteeFirstName = table.Column<string>(type: "text", nullable: true),
                     InviteeLastName = table.Column<string>(type: "text", nullable: true),
-                    isValid = table.Column<bool>(type: "boolean", nullable: false),
-                    InvitorId1 = table.Column<string>(type: "text", nullable: true),
-                    InviteeId1 = table.Column<string>(type: "text", nullable: true)
+                    isValid = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Invites", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Invites_AspNetUsers_InviteeId1",
-                        column: x => x.InviteeId1,
+                        name: "FK_Invites_AspNetUsers_InviteeId",
+                        column: x => x.InviteeId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Invites_AspNetUsers_InvitorId1",
-                        column: x => x.InvitorId1,
+                        name: "FK_Invites_AspNetUsers_InvitorId",
+                        column: x => x.InvitorId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -501,9 +499,9 @@ namespace TheBugTracker.Data.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     TicketId = table.Column<int>(type: "integer", nullable: false),
-                    Property = table.Column<int>(type: "integer", nullable: false),
-                    OldValue = table.Column<int>(type: "integer", nullable: false),
-                    NewValue = table.Column<int>(type: "integer", nullable: false),
+                    Property = table.Column<string>(type: "text", nullable: true),
+                    OldValue = table.Column<string>(type: "text", nullable: true),
+                    NewValue = table.Column<string>(type: "text", nullable: true),
                     Created = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: true),
                     UserId = table.Column<string>(type: "text", nullable: true)
@@ -578,14 +576,14 @@ namespace TheBugTracker.Data.Migrations
                 column: "CompanyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Invites_InviteeId1",
+                name: "IX_Invites_InviteeId",
                 table: "Invites",
-                column: "InviteeId1");
+                column: "InviteeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Invites_InvitorId1",
+                name: "IX_Invites_InvitorId",
                 table: "Invites",
-                column: "InvitorId1");
+                column: "InvitorId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Invites_ProjectId",

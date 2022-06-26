@@ -290,19 +290,13 @@ namespace TheBugTracker.Data.Migrations
                     b.Property<string>("InviteeFirstName")
                         .HasColumnType("text");
 
-                    b.Property<int>("InviteeId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("InviteeId1")
+                    b.Property<string>("InviteeId")
                         .HasColumnType("text");
 
                     b.Property<string>("InviteeLastName")
                         .HasColumnType("text");
 
-                    b.Property<int>("InvitorId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("InvitorId1")
+                    b.Property<string>("InvitorId")
                         .HasColumnType("text");
 
                     b.Property<DateTimeOffset>("JoinDate")
@@ -318,9 +312,9 @@ namespace TheBugTracker.Data.Migrations
 
                     b.HasIndex("CompanyId");
 
-                    b.HasIndex("InviteeId1");
+                    b.HasIndex("InviteeId");
 
-                    b.HasIndex("InvitorId1");
+                    b.HasIndex("InvitorId");
 
                     b.HasIndex("ProjectId");
 
@@ -574,14 +568,14 @@ namespace TheBugTracker.Data.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("text");
 
-                    b.Property<int>("NewValue")
-                        .HasColumnType("integer");
+                    b.Property<string>("NewValue")
+                        .HasColumnType("text");
 
-                    b.Property<int>("OldValue")
-                        .HasColumnType("integer");
+                    b.Property<string>("OldValue")
+                        .HasColumnType("text");
 
-                    b.Property<int>("Property")
-                        .HasColumnType("integer");
+                    b.Property<string>("Property")
+                        .HasColumnType("text");
 
                     b.Property<int>("TicketId")
                         .HasColumnType("integer");
@@ -728,11 +722,11 @@ namespace TheBugTracker.Data.Migrations
 
                     b.HasOne("TheBugTracker.Models.BTUser", "Invitee")
                         .WithMany()
-                        .HasForeignKey("InviteeId1");
+                        .HasForeignKey("InviteeId");
 
                     b.HasOne("TheBugTracker.Models.BTUser", "Invitor")
                         .WithMany()
-                        .HasForeignKey("InvitorId1");
+                        .HasForeignKey("InvitorId");
 
                     b.HasOne("TheBugTracker.Models.Project", "Project")
                         .WithMany()
