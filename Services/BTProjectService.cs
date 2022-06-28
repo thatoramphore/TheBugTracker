@@ -15,10 +15,10 @@ namespace TheBugTracker.Services
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<BTUser> _userManager;
-        private readonly RoleManager<IdentityUser> _roleManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IBTRolesService _rolesService;
 
-        public BTProjectService(ApplicationDbContext context, UserManager<BTUser> userManager, RoleManager<IdentityUser> roleManager, IBTRolesService rolesService)
+        public BTProjectService(ApplicationDbContext context, UserManager<BTUser> userManager, RoleManager<IdentityRole> roleManager, IBTRolesService rolesService)
         {
             _context = context;
             _userManager = userManager;

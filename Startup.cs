@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using TheBugTracker.Data;
 using TheBugTracker.Models;
 using TheBugTracker.Services;
+using TheBugTracker.Services.Factories;
 using TheBugTracker.Services.Interfaces;
 
 namespace TheBugTracker
@@ -32,12 +33,13 @@ namespace TheBugTracker
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseNpgsql(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                options.UseNpgsql(DataUtility.GetConnectionString(Configuration),
+              o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery)));
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddIdentity<BTUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddClaimsPrincipalFactory<BTUserClaimsPrincipalFactory>()
                 .AddDefaultUI()
                 .AddDefaultTokenProviders();
             //CUSTOM SERVICES
@@ -56,7 +58,7 @@ namespace TheBugTracker
             //register BTInviteService
             services.AddScoped<IBTInviteService, BTInviteService>();
             //register BTFileService
-            //services.AddScoped<IBTFileService, BTFileService>();
+            services.AddScoped<IBTFileService, BTFileService>();
 
             //register BTEmailService
             services.AddScoped<IEmailSender, BTEmailService>();
