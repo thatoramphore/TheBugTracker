@@ -531,6 +531,7 @@ C:\Users\thato\Documents\code\TheBugTracker\obj\Debug\net5.0\Razor\Views\TicketT
 C:\Users\thato\Documents\code\TheBugTracker\obj\Debug\net5.0\Razor\Views\TicketTypes\Details.cshtml.g.cs
 C:\Users\thato\Documents\code\TheBugTracker\obj\Debug\net5.0\Razor\Views\TicketTypes\Edit.cshtml.g.cs
 C:\Users\thato\Documents\code\TheBugTracker\obj\Debug\net5.0\Razor\Views\TicketTypes\Index.cshtml.g.cs
+C:\Users\thato\Documents\code\TheBugTracker\obj\Debug\net5.0\Razor\Views\UserRoles\ManageUserRoles.cshtml.g.cs
 C:\Users\thato\Documents\code\TheBugTracker\obj\Debug\net5.0\Razor\Views\_ViewImports.cshtml.g.cs
 C:\Users\thato\Documents\code\TheBugTracker\obj\Debug\net5.0\Razor\Views\_ViewStart.cshtml.g.cs
 C:\Users\thato\Documents\code\TheBugTracker\obj\Debug\net5.0\TheBugTracker.RazorTargetAssemblyInfo.cache
