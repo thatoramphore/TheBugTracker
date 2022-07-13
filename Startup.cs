@@ -42,23 +42,16 @@ namespace TheBugTracker
                 .AddClaimsPrincipalFactory<BTUserClaimsPrincipalFactory>()
                 .AddDefaultUI()
                 .AddDefaultTokenProviders();
+
             //CUSTOM SERVICES
-            //register BTRolesServices
             services.AddScoped<IBTRolesService, BTRolesService>();
-            //register BTCompanyInfoService
             services.AddScoped<IBTCompanyInfoService, BTCompanyInfoService>();
-            //register BTProjectService
             services.AddScoped<IBTProjectService, BTProjectService>();
-            //register BTTicketService
-            services.AddScoped<IBTTicketService, BTTicketService>();
-            //register BTTicketHistoryService
             services.AddScoped<IBTTicketHistoryService, BTTicketHistoryService>();
-            //register BTNotificationService
             services.AddScoped<IBTNotificationService, BTNotificationService>();
-            //register BTInviteService
             services.AddScoped<IBTInviteService, BTInviteService>();
-            //register BTFileService
             services.AddScoped<IBTFileService, BTFileService>();
+            services.AddScoped<IBTLookupService, BTLookupService>();
 
             //register BTEmailService
             services.AddScoped<IEmailSender, BTEmailService>();

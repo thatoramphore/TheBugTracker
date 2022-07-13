@@ -6,23 +6,36 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TheBugTracker.Data;
+using TheBugTracker.Extensions;
 using TheBugTracker.Models;
+using TheBugTracker.Models.Enums;
+using TheBugTracker.Models.ViewModels;
+using TheBugTracker.Services;
+using TheBugTracker.Services.Interfaces;
 
 namespace TheBugTracker.Controllers
 {
     public class ProjectsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IBTRolesService _rolesService;
+        private readonly IBTLookupService _lookupService;
+        private readonly IBTFileService _fileService;
+        private readonly IBTProjectService _projectService;
 
-        public ProjectsController(ApplicationDbContext context)
+        public ProjectsController(ApplicationDbContext context, IBTRolesService rolesService, IBTLookupService lookupService, IBTProjectService projectService, IBTFileService fileService)
         {
             _context = context;
+            _rolesService = rolesService;
+            _lookupService = lookupService;
+            _projectService = projectService;
+            _fileService = fileService;
         }
 
         // GET: Projects
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Projects.Include(p => p.ProjectPriority);
+            var applicationDbContext = _context.Projects.Include(p => p.Company).Include(p => p.ProjectPriority);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -35,6 +48,7 @@ namespace TheBugTracker.Controllers
             }
 
             var project = await _context.Projects
+                .Include(p => p.Company)
                 .Include(p => p.ProjectPriority)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (project == null)
@@ -46,10 +60,18 @@ namespace TheBugTracker.Controllers
         }
 
         // GET: Projects/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            ViewData["ProjectPriorityId"] = new SelectList(_context.ProjectPriorities, "Id", "Id");
-            return View();
+            int companyId = User.Identity.GetCompanyId().Value;
+
+            //Add viewModel instance "AddProjectWithPMViewModel"
+            AddProjectWithPMViewModel model = new();
+
+            //Load SelectList with data i.e PMList & PriorirtList
+            model.PMList = new SelectList(await _rolesService.GetUsersInRoleAsync(Roles.ProjectManager.ToString(), companyId), "Id", "FullName");
+            model.PriorityList = new SelectList(await _lookupService.GetProjectPrioritiesAsync(), "Id", "Name");
+
+            return View(model);
         }
 
         // POST: Projects/Create
@@ -57,16 +79,39 @@ namespace TheBugTracker.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,CompanyId,Name,Description,StartDate,EndDate,ProjectPriorityId,FileName,FileData,FileContentType,Archived")] Project project)
+        public async Task<IActionResult> Create(AddProjectWithPMViewModel model)
         {
-            if (ModelState.IsValid)
+            if(model != null)
             {
-                _context.Add(project);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                int companyId = User.Identity.GetCompanyId().Value;
+
+                try
+                {
+                    if (model.Project.FormFile != null)
+                    {
+                        model.Project.FileData = await _fileService.ConvertFileToByteArrayAsync(model.Project.FormFile);
+                        model.Project.FileName = model.Project.FormFile.FileName;
+                        model.Project.FileContentType = model.Project.FormFile.ContentType;
+                    }
+
+                    model.Project.CompanyId = companyId;
+
+                    await _projectService.AddNewProjectAsync(model.Project);
+
+                    //Add PM if one was chosen
+                    if (!string.IsNullOrEmpty(model.PmId))
+                    {
+                        await _projectService.AddProjectManagerAsync(model.PmId, model.Project.Id);
+                    }
+                    return RedirectToAction("Index");
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
             }
-            ViewData["ProjectPriorityId"] = new SelectList(_context.ProjectPriorities, "Id", "Id", project.ProjectPriorityId);
-            return View(project);
+            return RedirectToAction("Create");
         }
 
         // GET: Projects/Edit/5
@@ -82,6 +127,7 @@ namespace TheBugTracker.Controllers
             {
                 return NotFound();
             }
+            ViewData["CompanyId"] = new SelectList(_context.Companies, "Id", "Id", project.CompanyId);
             ViewData["ProjectPriorityId"] = new SelectList(_context.ProjectPriorities, "Id", "Id", project.ProjectPriorityId);
             return View(project);
         }
@@ -118,6 +164,7 @@ namespace TheBugTracker.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["CompanyId"] = new SelectList(_context.Companies, "Id", "Id", project.CompanyId);
             ViewData["ProjectPriorityId"] = new SelectList(_context.ProjectPriorities, "Id", "Id", project.ProjectPriorityId);
             return View(project);
         }
@@ -131,6 +178,7 @@ namespace TheBugTracker.Controllers
             }
 
             var project = await _context.Projects
+                .Include(p => p.Company)
                 .Include(p => p.ProjectPriority)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (project == null)
