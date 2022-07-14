@@ -487,11 +487,13 @@ C:\Users\thato\Documents\code\TheBugTracker\obj\Debug\net5.0\Razor\Views\Project
 C:\Users\thato\Documents\code\TheBugTracker\obj\Debug\net5.0\Razor\Views\ProjectPriorities\Details.cshtml.g.cs
 C:\Users\thato\Documents\code\TheBugTracker\obj\Debug\net5.0\Razor\Views\ProjectPriorities\Edit.cshtml.g.cs
 C:\Users\thato\Documents\code\TheBugTracker\obj\Debug\net5.0\Razor\Views\ProjectPriorities\Index.cshtml.g.cs
+C:\Users\thato\Documents\code\TheBugTracker\obj\Debug\net5.0\Razor\Views\Projects\Archive.cshtml.g.cs
 C:\Users\thato\Documents\code\TheBugTracker\obj\Debug\net5.0\Razor\Views\Projects\Create.cshtml.g.cs
-C:\Users\thato\Documents\code\TheBugTracker\obj\Debug\net5.0\Razor\Views\Projects\Delete.cshtml.g.cs
 C:\Users\thato\Documents\code\TheBugTracker\obj\Debug\net5.0\Razor\Views\Projects\Details.cshtml.g.cs
 C:\Users\thato\Documents\code\TheBugTracker\obj\Debug\net5.0\Razor\Views\Projects\Edit.cshtml.g.cs
 C:\Users\thato\Documents\code\TheBugTracker\obj\Debug\net5.0\Razor\Views\Projects\Index.cshtml.g.cs
+C:\Users\thato\Documents\code\TheBugTracker\obj\Debug\net5.0\Razor\Views\Projects\MyProjects.cshtml.g.cs
+C:\Users\thato\Documents\code\TheBugTracker\obj\Debug\net5.0\Razor\Views\Projects\Restore.cshtml.g.cs
 C:\Users\thato\Documents\code\TheBugTracker\obj\Debug\net5.0\Razor\Views\Shared\Error.cshtml.g.cs
 C:\Users\thato\Documents\code\TheBugTracker\obj\Debug\net5.0\Razor\Views\Shared\_Layout.cshtml.g.cs
 C:\Users\thato\Documents\code\TheBugTracker\obj\Debug\net5.0\Razor\Views\Shared\_LoginPartial.cshtml.g.cs
