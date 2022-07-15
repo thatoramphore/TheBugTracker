@@ -487,7 +487,9 @@ C:\Users\thato\Documents\code\TheBugTracker\obj\Debug\net5.0\Razor\Views\Project
 C:\Users\thato\Documents\code\TheBugTracker\obj\Debug\net5.0\Razor\Views\ProjectPriorities\Details.cshtml.g.cs
 C:\Users\thato\Documents\code\TheBugTracker\obj\Debug\net5.0\Razor\Views\ProjectPriorities\Edit.cshtml.g.cs
 C:\Users\thato\Documents\code\TheBugTracker\obj\Debug\net5.0\Razor\Views\ProjectPriorities\Index.cshtml.g.cs
+C:\Users\thato\Documents\code\TheBugTracker\obj\Debug\net5.0\Razor\Views\Projects\AllProjects.cshtml.g.cs
 C:\Users\thato\Documents\code\TheBugTracker\obj\Debug\net5.0\Razor\Views\Projects\Archive.cshtml.g.cs
+C:\Users\thato\Documents\code\TheBugTracker\obj\Debug\net5.0\Razor\Views\Projects\ArchivedProjects.cshtml.g.cs
 C:\Users\thato\Documents\code\TheBugTracker\obj\Debug\net5.0\Razor\Views\Projects\Create.cshtml.g.cs
 C:\Users\thato\Documents\code\TheBugTracker\obj\Debug\net5.0\Razor\Views\Projects\Details.cshtml.g.cs
 C:\Users\thato\Documents\code\TheBugTracker\obj\Debug\net5.0\Razor\Views\Projects\Edit.cshtml.g.cs
