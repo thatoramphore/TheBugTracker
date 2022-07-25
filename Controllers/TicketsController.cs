@@ -26,13 +26,15 @@ namespace TheBugTracker.Controllers
         private readonly IBTLookupService _lookupService;
         private readonly IBTTicketService _ticketService;
         private readonly IBTFileService _fileService;
+        private readonly IBTRolesService _rolesService;
 
         public TicketsController(ApplicationDbContext context,
                                 UserManager<BTUser> userManager,
                                 IBTProjectService projectService,
                                 IBTLookupService lookupService,
-                                IBTTicketService ticketService, 
-                                IBTFileService fileService)
+                                IBTTicketService ticketService,
+                                IBTFileService fileService, 
+                                IBTRolesService rolesService)
         {
             _context = context;
             _userManager = userManager;
@@ -40,9 +42,11 @@ namespace TheBugTracker.Controllers
             _lookupService = lookupService;
             _ticketService = ticketService;
             _fileService = fileService;
+            _rolesService = rolesService;
         }
 
         // GET: Tickets
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Tickets.Include(t => t.DeveloperUser).Include(t => t.OwnerUser).Include(t => t.Project).Include(t => t.TicketPriority).Include(t => t.TicketStatus).Include(t => t.TicketType);
@@ -50,6 +54,7 @@ namespace TheBugTracker.Controllers
         }
 
         //GET: MyTickets
+        [HttpGet]
         public async Task<IActionResult> MyTickets()
         {
             BTUser btUser = await _userManager.GetUserAsync(User);
@@ -60,6 +65,7 @@ namespace TheBugTracker.Controllers
         }
 
         //GET: AllTickets
+        [HttpGet]
         public async Task<IActionResult> AllTickets()
         {
             int companyId = User.Identity.GetCompanyId().Value;
@@ -77,6 +83,7 @@ namespace TheBugTracker.Controllers
         }
 
         //GET: ArchivedTickets
+        [HttpGet]
         public async Task<IActionResult> ArchivedTickets()
         {
             int companyId = User.Identity.GetCompanyId().Value;
@@ -87,6 +94,7 @@ namespace TheBugTracker.Controllers
         }
 
         //GET: UnassignedTickets
+        [HttpGet]
         [Authorize(Roles="Admin, ProjectManager")]
         public async Task<IActionResult> UnassignedTickets()
         {
@@ -138,7 +146,56 @@ namespace TheBugTracker.Controllers
             return RedirectToAction(nameof(AssignDeveloper), new { id = model.Ticket.Id });
         }
 
+        //GET: Projects/AssignMembers
+        [HttpGet]
+        public async Task<IActionResult> AssignMembers(int id)
+        {
+            ProjectMembersViewModel model = new();
+
+            int companyId = User.Identity.GetCompanyId().Value;
+
+            model.Project = await _projectService.GetProjectByIdAsync(id, companyId);
+
+            List<BTUser> developers = await _rolesService.GetUsersInRoleAsync(nameof(Roles.Developer), companyId);
+            List<BTUser> submitters = await _rolesService.GetUsersInRoleAsync(nameof(Roles.Submitter), companyId);
+
+            List<BTUser> companyMembers = developers.Concat(submitters).ToList();
+
+            List<string> projectMembers = model.Project.Members.Select(m => m.Id).ToList();
+            model.Users = new MultiSelectList(companyMembers, "Id", "FullName", projectMembers);
+
+            return View(model);
+        }
+
+        //POST: Projects/AssignMembers
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AssignMembers(ProjectMembersViewModel model)
+        {
+            if(model.SelectedUsers != null)
+            {
+                List<string> memberIds = (await _projectService.GetAllProjectMembersExceptPMAsync(model.Project.Id))
+                                                               .Select(m => m.Id).ToList();
+                //Remove current members
+                foreach(string member in memberIds)
+                {
+                    await _projectService.RemoveUserFromProjectAsync(member, model.Project.Id);
+                }
+
+                //Add selected members
+                foreach(string member in model.SelectedUsers)
+                {
+                    await _projectService.AddUserToProjectAsync(member, model.Project.Id);
+                }
+
+                //Redirect to Details
+                return RedirectToAction("Details", "Projects", new { id = model.Project.Id });
+            }
+            return RedirectToAction(nameof(AssignMembers), new { id = model.Project.Id });
+        }
+
         // GET: Tickets/Details/5
+        [HttpGet]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -157,6 +214,7 @@ namespace TheBugTracker.Controllers
         }
 
         // GET: Tickets/Create
+        [HttpGet]
         public async Task<IActionResult> Create()
         {
             BTUser btUser = await _userManager.GetUserAsync(User);
@@ -220,6 +278,7 @@ namespace TheBugTracker.Controllers
         }
 
         // GET: Tickets/Edit/5
+        [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -334,6 +393,7 @@ namespace TheBugTracker.Controllers
         }
 
         //GET: TicketAttachments/ShowFile
+        [HttpGet]
         public async Task<IActionResult> ShowFile(int id)
         {
             TicketAttachment ticketAttachment = await _ticketService.GetTicketAttachmentByIdAsync(id);
@@ -346,6 +406,7 @@ namespace TheBugTracker.Controllers
         }
 
         // GET: Tickets/Archive/5
+        [HttpGet]
         public async Task<IActionResult> Archive(int? id)
         {
             if (id == null)
@@ -376,6 +437,7 @@ namespace TheBugTracker.Controllers
         }
 
         // GET: Tickets/Restore/5
+        [HttpGet]
         public async Task<IActionResult> Restore(int? id)
         {
             if (id == null)
