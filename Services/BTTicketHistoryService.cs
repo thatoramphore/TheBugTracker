@@ -11,13 +11,18 @@ namespace TheBugTracker.Services
 {
     public class BTTicketHistoryService : IBTTicketHistoryService
     {
-        private readonly ApplicationDbContext _context;
+        #region Properties
+        private readonly ApplicationDbContext _context; 
+        #endregion
 
+        #region Constructor
         public BTTicketHistoryService(ApplicationDbContext context)
         {
             _context = context;
         }
+        #endregion
 
+        #region Add History (1)
         public async Task AddHistoryAsync(Ticket oldTicket, Ticket newTicket, string userId)
         {
             //NEW TICKET HAS ABEEN ADDED
@@ -48,7 +53,7 @@ namespace TheBugTracker.Services
             else
             {
                 //check Ticket Title
-                if(oldTicket.Title != newTicket.Title)
+                if (oldTicket.Title != newTicket.Title)
                 {
                     TicketHistory history = new()
                     {
@@ -155,7 +160,41 @@ namespace TheBugTracker.Services
 
             }
         }
+        #endregion
 
+        #region Add History (2)
+        public async Task AddHistoryAsync(int ticketId, string model, string userId)
+        {
+            try
+            {
+                Ticket ticket = await _context.Tickets.FindAsync(ticketId);
+                string description = model.ToLower().Replace("Ticket", "");
+                description = $"New {description} add to ticket: {ticket.Title}";
+
+                TicketHistory history = new()
+                {
+                    TicketId = ticket.Id,
+                    Property = model,
+                    OldValue = "",
+                    NewValue = "",
+                    Created = DateTimeOffset.Now,
+                    UserId = userId,
+                    Description = description
+                };
+
+                await _context.TicketHistories.AddAsync(history);
+                await _context.SaveChangesAsync();
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        #endregion
+
+        #region Get Company Ticket Histories
         public async Task<List<TicketHistory>> GetCompanyTicketsHistoriesAsync(int companyId)
         {
             //get all projects of the company
@@ -181,7 +220,9 @@ namespace TheBugTracker.Services
                 throw;
             }
         }
+        #endregion
 
+        #region Get Project Ticket Histories
         public async Task<List<TicketHistory>> GetProjectTicketsHistoriesAsync(int projectId, int companyId)
         {
             try
@@ -200,6 +241,7 @@ namespace TheBugTracker.Services
             {
                 throw;
             }
-        }
+        } 
+        #endregion
     }
 }
